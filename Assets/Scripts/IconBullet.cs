@@ -10,27 +10,42 @@ public class IconBullet : MonoBehaviour
         Bullet
     }
 
+    public StickMan Target;
+
+    public float IdleTime = 2f;
     public float DegreesPerSec = 360f;
     public float Speed = 10f;
 
-    private Vector2 _velocity;
-    private State _state = State.Bullet;
-    private float _t = 0f;
+    private float _idleT = 0f;
+    private Vector2 _velocity = new Vector2();
+    private State _state = State.Idle;
+    private float _rotationT = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        //var playerPos = new Vector2();
-        _velocity = Vector2.down * Speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_state == State.Bullet)
+        switch (_state)
         {
-            _t += Time.deltaTime;
-            transform.rotation = Quaternion.Euler(0, 0, _t * DegreesPerSec);
+            case State.Idle:
+                _idleT += Time.deltaTime;
+                if (_idleT >= IdleTime)
+                {
+                    _idleT = 0f;
+                    if (Target)
+                        _velocity = (Target.transform.position - transform.position).normalized * Speed;
+                    _state = State.Bullet;
+                }
+                break;
+            case State.Bullet:
+                _rotationT += Time.deltaTime;
+                transform.rotation = Quaternion.Euler(0, 0, _rotationT * DegreesPerSec);
+                transform.position = transform.position + _velocity.ToVector3() * Time.deltaTime;
+                break;
         }
     }
 }

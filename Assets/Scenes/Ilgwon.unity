@@ -217,7 +217,7 @@ MonoBehaviour:
   MovementSpeed: 9
   MovementAcceleration: 75
   MovementDeceleration: 70
-  JumpSpeed: 2
+  JumpHeight: 4
 --- !u!61 &188175598
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -760,6 +760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0f6a08731437d48a4a935cbbedeb1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: {fileID: 188175596}
+  IdleTime: 2
   DegreesPerSec: 1440
   Speed: 10
 --- !u!1 &1178242639
