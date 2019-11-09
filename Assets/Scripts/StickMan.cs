@@ -1,51 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+public static class ExtensionMethods
+{
+    public static Vector2 ToVector2(this Vector3 @this) => new Vector2(@this.x, @this.y);
+    public static Vector3 ToVector3(this Vector2 @this) => new Vector3(@this.x, @this.y, 0);
+}
+
 public class StickMan : MonoBehaviour
 {
-    public float MovementSpeed = 2f;
-    public float JumpSpeed = 2f;
+    public float MovementSpeed = 9;
+    public float MovementAcceleration = 75;
+    public float MovementDeceleration = 70;
+    public float JumpHeight = 4;
 
-    private Rigidbody2D _rigidbody;
+    private BoxCollider2D _collider;
     private bool _isGrounded = false;
+
+    private Vector2 _velocity = new Vector2();
 
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.freezeRotation = true;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("haha");
-        if (collision.gameObject.tag == "Ground" & _isGrounded == false)
-            _isGrounded = true;
-    }
-
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        Debug.Log("haha2");
-        if (collision.gameObject.tag == "Ground" & _isGrounded == false)
-            _isGrounded = true;
+        _collider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            _rigidbody.velocity = Vector2.right * MovementSpeed;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            _rigidbody.velocity = Vector2.left * MovementSpeed;
-        }
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        if (moveInput != 0)
+            _velocity.x = Mathf.MoveTowards(_velocity.x, MovementSpeed * moveInput, MovementAcceleration * Time.deltaTime);
+        else
+            _velocity.x = Mathf.MoveTowards(_velocity.x, 0, MovementDeceleration * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        if (_isGrounded)
         {
-            _rigidbody.AddForce(new Vector2(0, 2) * JumpSpeed, ForceMode2D.Impulse);
-            _isGrounded = false;
+            _velocity.y = 0;
+            if (Input.GetKeyDown(KeyCode.Space))
+                _velocity.y = Mathf.Sqrt(2 * JumpHeight * Mathf.Abs(Physics2D.gravity.y));
+        }
+        _velocity.y += Physics2D.gravity.y * Time.deltaTime;
+
+        transform.Translate(_velocity.ToVector3() * Time.deltaTime);
+
+        var colliderSize = _collider.size * transform.localScale;
+
+        var hits = Physics2D.OverlapBoxAll(transform.position.ToVector2(), colliderSize, 0);
+
+        _isGrounded = false;
+        foreach (var hit in hits)
+        {
+            if (hit == _collider)
+                continue;
+
+            var colliderDistance = hit.Distance(_collider);
+
+            if (colliderDistance.isOverlapped)
+            {
+                if (Vector2.Angle(colliderDistance.normal, Vector2.up) < 90 && _velocity.y < 0)
+                    _isGrounded = true;
+                transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
+            }
         }
     }
 }
