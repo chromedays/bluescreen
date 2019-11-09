@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class TestEverything : MonoBehaviour
 {
-    WindowsXP xp;
+    WindowsXP Xp;
+
+    public float WindowResizeTime;        
 
     // Start is called before the first frame update
     void Start()
     {
-        xp = GameObject.FindObjectOfType<WindowsXP>();   
+        Xp = GameObject.FindObjectOfType<WindowsXP>();   
     }
-                                                   
+                                       
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.A))
         {
-            if (xp)
+            if (Xp)
             {
-                xp.CreatePopUp( Random.insideUnitCircle * Random.Range(20, 50));
+                XPPopup popup = Xp.CreatePopUp( Random.insideUnitCircle* Random.Range(1, 5));
+                popup.AnimateResize(WindowResizeTime, null);
             }
             else
             {
-                xp = GameObject.FindObjectOfType<WindowsXP>();
+                Xp = GameObject.FindObjectOfType<WindowsXP>();
             }
         }
     }
