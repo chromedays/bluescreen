@@ -49,4 +49,9 @@ public class XPPopup : MonoBehaviour
             StartCoroutine(Resize(time, deltaShrink));
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //if(collision.gameObject == )
+    }
 }
