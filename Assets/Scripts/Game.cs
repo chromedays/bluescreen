@@ -10,6 +10,9 @@ public class Game : MonoBehaviour
     public StickMan StickMan = null;
     public StickManLifeBar StickManLifeBar = null;
     public WindowsHP WindowsHP = null;
+    public FragmentGenerator FragmentGenerator = null;
+    public WindowsXP WindowsXP = null;
+    public CameraShake CameraShake = null;
 
     void Awake()
     {

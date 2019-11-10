@@ -47,6 +47,9 @@ public class WindowsXP : MonoBehaviour
     public int XPosDivisor = 20;
     public Vector2 Margin = new Vector2(0.05f, 0.5f);
 
+    public float WindowAliveTime = 1.0f;
+    public float WindowFadeOutTime = 1.0f;
+
 
     //Testing
     WindowSize currWin = WindowSize.eExtraSmall;

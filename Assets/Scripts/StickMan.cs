@@ -97,7 +97,7 @@ public class StickMan : MonoBehaviour
             if (hit.gameObject.layer == LayerMask.NameToLayer("Windows"))
             {
                 var popup = hit.gameObject.GetComponent<XPPopup>();
-                if (popup.HitPlayer == false && _isBlinking == false)
+                if (popup.HitPlayer == false && popup.Destorying == false && _isBlinking == false)
                 {
                     Blink();
                     --_lifeCount;
