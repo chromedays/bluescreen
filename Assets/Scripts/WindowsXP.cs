@@ -21,9 +21,33 @@ public class WindowsXP : MonoBehaviour
         Assert.IsNotNull(PopupPrefab, "Popup Prefab should not be null!");
         Assert.IsNotNull(PopupErrorSound, "PopupErrorSound should not be null!");
         Assert.IsNotNull(MouseGameObj, "MouseGameObj should not be null!");
+    }                                                             
+    public void DropWindows(float resizeTime, float summonInterval, float windowCounts)
+    {                                   
+        StartCoroutine(SummonWindows(resizeTime, summonInterval, windowCounts));
     }
-                
-    public XPPopup CreatePopUp(Vector2 position)
+
+    IEnumerator SummonWindows(float resizeTime, float summonInterval, float windowCounts)
+    {                                             
+        float elapstedTime = summonInterval;
+        Vector2 position = new Vector2(-5, 10);
+        int c = 0;
+        while(c < windowCounts)
+        {
+            elapstedTime += Time.deltaTime;
+            if (elapstedTime >= summonInterval)
+            {
+                Debug.Log(c + "th windows: ");
+                CreatePopUp(position).AnimateResize(resizeTime, null);
+                elapstedTime -= summonInterval;
+                position += new Vector2(0.5f, 0);
+                ++c;
+            }
+            yield return null;
+        }
+    }
+
+    XPPopup CreatePopUp(Vector2 position)
     {
         GameObject Popup = Instantiate(PopupPrefab, ScreenCanvas.transform);
 

@@ -6,7 +6,11 @@ public class TestEverything : MonoBehaviour
 {
     WindowsXP Xp;
 
-    public float WindowResizeTime;        
+    public float WindowDropResizeTime;
+    public float WindowSummonInterval;
+    public int WindowCountToDrop;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,17 +21,12 @@ public class TestEverything : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.G))
         {
             if (Xp)
             {
-                XPPopup popup = Xp.CreatePopUp( Random.insideUnitCircle* Random.Range(1, 5));
-                popup.AnimateResize(WindowResizeTime, null);
-            }
-            else
-            {
-                Xp = GameObject.FindObjectOfType<WindowsXP>();
-            }
+                Xp.DropWindows(WindowDropResizeTime, WindowSummonInterval, WindowCountToDrop);
+            }     
         }
     }
 }
