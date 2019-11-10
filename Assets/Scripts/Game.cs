@@ -18,5 +18,6 @@ public class Game : MonoBehaviour
     {
         Assert.IsNull(Inst);
         Inst = this;
+        Screen.SetResolution(1024, 768, false);
     }
 }
