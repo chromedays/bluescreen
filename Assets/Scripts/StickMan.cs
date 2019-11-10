@@ -36,6 +36,12 @@ public class StickMan : MonoBehaviour
         _lifeCount = MaxLifeCount;
     }
 
+    void TryPlayAnim(string name)
+    {
+        if (!Anim.GetCurrentAnimatorStateInfo(0).IsName(name))
+            Anim.Play(name);
+    }
+
     void Update()
     {
         if (_lifeBar == null && Game.Inst.StickManLifeBar)
@@ -58,29 +64,12 @@ public class StickMan : MonoBehaviour
             _velocity.x = Mathf.MoveTowards(_velocity.x, 0, MovementDeceleration * Time.deltaTime);
         }
 
-        //GetComponent<SpriteRenderer>().flipX = _velocity.x > 0;
-#if false
-
-        if (_velocity.x != 0)
-        {
-            if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("Run"))
-                Anim.Play("Run");
-        }
-        else
-        {
-            if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                Anim.Play("Idle");
-        }
-#endif
 
         if (_isGrounded)
         {
             _velocity.y = 0;
             if (Input.GetKeyDown(KeyCode.Space))
-            {
                 _velocity.y = Mathf.Sqrt(2 * JumpHeight * Mathf.Abs(Physics2D.gravity.y));
-                Anim.Play("Jump");
-            }
         }
         _velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
@@ -112,7 +101,6 @@ public class StickMan : MonoBehaviour
                     }
                     popup.HitPlayer = true;
                 }
-                //OnProjectileCollision.Invoke(hit.gameObject.GetInstanceID());
             }
             else
             {
@@ -121,16 +109,20 @@ public class StickMan : MonoBehaviour
                 if (colliderDistance.isOverlapped)
                 {
                     if (Vector2.Angle(colliderDistance.normal, Vector2.up) < 90 && _velocity.y < 0)
-                    {
                         _isGrounded = true;
-                        Anim.Play("Idle");
-                    }
 
                     transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
                 }
             }
 
         }
+
+        if (!_isGrounded)
+            TryPlayAnim("Jump");
+        else if (_velocity.x != 0)
+            TryPlayAnim("Run");
+        else
+            TryPlayAnim("Idle");
 
         if (_lifeBar)
             _lifeBar.transform.position = transform.position + new Vector3(0, 0.5f, 0);
