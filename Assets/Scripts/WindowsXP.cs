@@ -133,7 +133,7 @@ public class WindowsXP : MonoBehaviour
         for (int i = 0; i < info.scaler.Length; ++i)
         {
             if (info.pos != 0)
-                Pos.x = Margin.x + availableSpaceX * (info.scaler[i] / (float)info.pos);
+                Pos.x = availableSpaceX * (info.scaler[i] / ((float)info.pos+1));
             else
                 Pos.x = 0.0f;
 
