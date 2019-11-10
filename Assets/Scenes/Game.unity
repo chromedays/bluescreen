@@ -585,7 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a440547ee4fd554b9266f7ae36dc8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxLifeCount: 100
+  MaxLifeSpanInSeconds: 68
   Glitch: {fileID: 1468220862}
 --- !u!114 &1097820184 stripped
 MonoBehaviour:
@@ -2167,7 +2167,7 @@ PrefabInstance:
     - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
       propertyPath: loop
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
