@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Assertions;    
+using UnityEngine.Assertions;
 
 public class XPPopup : MonoBehaviour
 {                                     
@@ -40,7 +40,7 @@ public class XPPopup : MonoBehaviour
 
         GetComponent<Rigidbody2D>().simulated = true;
     }
-                              
+
     public void AnimateResize(float time, Vector2 endSize)
     {
         EndSize = endSize;
@@ -54,7 +54,7 @@ public class XPPopup : MonoBehaviour
 
     IEnumerator FadeOutAndDestroy(float aliveTime, float fadeoutTime)
     {
-        yield return new WaitForSeconds(aliveTime);        
+        yield return new WaitForSeconds(aliveTime);
 
         Destorying = true;
 
@@ -63,19 +63,19 @@ public class XPPopup : MonoBehaviour
         foreach (Image img in images)
             img.color += new Color(0, 0, 0, -img.color.a / 3);
 
-        float dA = 1.0f / fadeoutTime; 
+        float dA = 1.0f / fadeoutTime;
         while (fadeoutTime > 0)
         {
             foreach (Image img in images)
-                img.color += new Color(0,0,0,-dA * Time.deltaTime);
+                img.color += new Color(0, 0, 0, -dA * Time.deltaTime);
             fadeoutTime -= Time.deltaTime;
             yield return null;
-        }             
+        }
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {                                 
+    {
         if (collision.collider.gameObject.CompareTag("Ground"))
         {
             CameraShake cs = Game.Inst.CameraShake;
@@ -92,6 +92,8 @@ public class XPPopup : MonoBehaviour
             cs.ShakeCamera();
 
             StartCoroutine(FadeOutAndDestroy(xp.WindowAliveTime, xp.WindowFadeOutTime));
+
+            Game.Inst.WindowsHP.ReduceLife();
         }
     }
 }
