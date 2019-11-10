@@ -74,7 +74,5 @@ public class StickMan : MonoBehaviour
                 transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
             }
         }
-
-        Game.Inst.StickManLifeBar.transform.position = transform.position + new Vector3(0, 0.5f, 0);
     }
 }

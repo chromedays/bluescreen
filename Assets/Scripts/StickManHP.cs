@@ -18,9 +18,12 @@ public class StickManHP : MonoBehaviour
         _collidedInstanceIds.Add(id);
 
         --_lifeCount;
+        _lifeBar.ReduceLife();
 
         if (_lifeCount <= 0)
         {
+            Destroy(_lifeBar.gameObject);
+            Game.Inst.StickManLifeBar = null;
             Destroy(gameObject);
             Game.Inst.StickMan = null;
         }
@@ -47,6 +50,7 @@ public class StickManHP : MonoBehaviour
             _lifeBar = Game.Inst.StickManLifeBar;
             _lifeBar.InitLife(_lifeCount);
         }
-        Game.Inst.StickManLifeBar.transform.position = transform.position + new Vector3(0, 0.5f, 0);
+        if (_lifeBar)
+            _lifeBar.transform.position = transform.position + new Vector3(0, 0.5f, 0);
     }
 }

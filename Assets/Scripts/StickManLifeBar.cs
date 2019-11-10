@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class StickManLifeBar : MonoBehaviour
 
     private RectTransform _rect;
     private GridLayoutGroup _grid;
+    private List<GameObject> _lifes = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,15 @@ public class StickManLifeBar : MonoBehaviour
         {
             var life = Instantiate(LifePrefab);
             life.transform.SetParent(transform);
+            _lifes.Add(life);
         }
         //_grid.SetLayoutHorizontal();
+    }
+
+    public void ReduceLife()
+    {
+        var life = _lifes[_lifes.Count - 1];
+        Destroy(life);
+        _lifes.RemoveAt(_lifes.Count - 1);
     }
 }
