@@ -20,40 +20,29 @@ public class XPPopup : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {                   
-                               
-    }
-
-    public void SetSizeAnchoredTopLeft(Vector2 size)
-    {
-        Rect.sizeDelta = size;
+    {                         
     }
                                 
-    IEnumerator Resize(float time, float deltaSizePerSec)
+    IEnumerator Resize(float time, Vector2 deltaShrink)
     {
-        float timeLeft = time;
+        float timeLeft = time;                     
         GetComponent<Rigidbody2D>().simulated = false;
+        
         for (timeLeft = time; timeLeft >= Time.deltaTime; timeLeft -= Time.deltaTime)
-        {
-            float dt = Time.deltaTime * deltaSizePerSec;
-            SetSizeAnchoredTopLeft(Rect.sizeDelta + new Vector2(-dt, -dt));
+        {                                               
+            Rect.sizeDelta = Rect.sizeDelta + deltaShrink * Time.deltaTime;
             yield return null;
         }
 
-        SetSizeAnchoredTopLeft(Rect.sizeDelta + new Vector2(-timeLeft* deltaSizePerSec, timeLeft* deltaSizePerSec));
+        Rect.sizeDelta = Rect.sizeDelta + deltaShrink * timeLeft; 
         //OnResizeEnd?.Invoke();
 
         GetComponent<Rigidbody2D>().simulated = true;
     }
       
-    public void AnimateResize(float time, float deltaSizePerSec)
-    {                            
-        float unit = time * deltaSizePerSec;
-                           
-        Vector2 newSize = Rect.sizeDelta + new Vector2(unit, unit);
-
-        SetSizeAnchoredTopLeft(newSize);
-                                                  
-        StartCoroutine(Resize(time, deltaSizePerSec));
+    public void AnimateResize(float time, Vector2 endSize)
+    {       
+        Vector2 deltaShrink = (endSize - Rect.sizeDelta) / time;
+        StartCoroutine(Resize(time, deltaShrink));
     }
 }
