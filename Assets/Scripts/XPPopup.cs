@@ -12,8 +12,8 @@ public class XPPopup : MonoBehaviour
     public BoxCollider2D Box2D;
                                       
     public delegate void Func();
-    public Func OnResizeEnd;   
- 
+    public Func OnResizeEnd;
+                                      
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +31,9 @@ public class XPPopup : MonoBehaviour
                                
     }
 
-    public void AddSizeAnchoredTopLeft(float deltaX, float deltaY)
+    public void SetSizeAnchoredTopLeft(Vector2 size)
     {
-        Rect.sizeDelta = Rect.sizeDelta + new Vector2(deltaX, deltaY);
-
-        Box2D.size = Rect.sizeDelta;
-        Box2D.offset = new Vector2(Box2D.size.x / 2, -Box2D.size.y/2);
+        Rect.sizeDelta = size;
     }
                                 
     IEnumerator Resize(float time, float deltaSizePerSec)
@@ -46,11 +43,11 @@ public class XPPopup : MonoBehaviour
         for (timeLeft = time; timeLeft >= Time.deltaTime; timeLeft -= Time.deltaTime)
         {
             float dt = Time.deltaTime * deltaSizePerSec;
-            AddSizeAnchoredTopLeft(-dt, -dt);
+            SetSizeAnchoredTopLeft(Rect.sizeDelta + new Vector2(-dt, -dt));
             yield return null;
         }
 
-        AddSizeAnchoredTopLeft(-timeLeft* deltaSizePerSec, timeLeft* deltaSizePerSec);
+        SetSizeAnchoredTopLeft(Rect.sizeDelta + new Vector2(-timeLeft* deltaSizePerSec, timeLeft* deltaSizePerSec));
         OnResizeEnd?.Invoke();
 
         GetComponent<Rigidbody2D>().simulated = true;
@@ -61,8 +58,10 @@ public class XPPopup : MonoBehaviour
         OnResizeEnd = calledAfter;
 
         float unit = time * deltaSizePerSec;
+                           
+        Vector2 newSize = Rect.sizeDelta + new Vector2(unit, unit);
 
-        AddSizeAnchoredTopLeft(unit, unit);
+        SetSizeAnchoredTopLeft(newSize);
                                                   
         StartCoroutine(Resize(time, deltaSizePerSec));
     }

@@ -4,15 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 
+[System.Serializable]
+public class SummonInfo
+{                               
+    public Vector2 pos; // radio 
+    public Vector2 initSize;
+    public float sizeDelta;
+    public float resizeTime;      
+};
+
+[System.Serializable]
+public class PatternInfo    
+{
+    public SummonInfo[] summons;
+    public float summonInterval;
+}
+            
+
 public class WindowsXP : MonoBehaviour
 {                                     
     public Canvas ScreenCanvas;
     public GameObject PopupPrefab;
     public AudioSource PopupErrorSound;
     public GameObject MouseGameObj;
+                                       
+    public List<PatternInfo> Patterns = new List<PatternInfo>();
 
-    public Vector2 WindowDefaultSize;
-                                     
     // Start is called before the first frame update
     void Start()
     {
@@ -20,46 +37,37 @@ public class WindowsXP : MonoBehaviour
         Assert.IsNotNull(PopupPrefab, "Popup Prefab should not be null!");
         Assert.IsNotNull(PopupErrorSound, "PopupErrorSound should not be null!");
         Assert.IsNotNull(MouseGameObj, "MouseGameObj should not be null!");
-    }                             
-
-    public void DropWindows(Vector2 resizeTimeRange, float summonInterval, int windowCounts,
-        Vector2 resizeDeltaRange, Vector2 initialSizeXRange, Vector2 initialSizeYRang)
-    {                                   
-        StartCoroutine(SummonWindows(resizeTimeRange, summonInterval, windowCounts, resizeDeltaRange,
-            initialSizeXRange, initialSizeYRang));
     }
 
-    IEnumerator SummonWindows(Vector2 resizeTimeRange, 
-        float summonInterval, int windowCounts, Vector2 resizeDeltaRange,
-        Vector2 initialSizeXRange, Vector2 initialSizeYRange)
+    public void DropWindows(int patternIndex)
+    {
+        Assert.IsNotNull(Patterns, "Pattern is Empty!");
+
+        IEnumerator summonWindows = SummonWindows(Patterns[patternIndex].summonInterval, Patterns[patternIndex].summons);
+
+        StartCoroutine(summonWindows);                      
+    }
+
+    
+    IEnumerator SummonWindows(float summonInterval, SummonInfo[] summons)
     {                                             
         float elapstedTime = summonInterval;
-
+        Vector2 canvasSize = ScreenCanvas.GetComponent<RectTransform>().sizeDelta;
         Vector2 canvasPos = ScreenCanvas.transform.position;
-        Vector2 canvasSize = ScreenCanvas.GetComponent<RectTransform>().sizeDelta;      
-        Vector2 position = new Vector2(canvasPos.x - canvasSize.x/2, canvasPos.y + canvasSize.y/2);
-
-        float deltaPosX = canvasSize.x / windowCounts;
-        int c = 0;
-       
-        while(c < windowCounts)
+        canvasPos.x -= canvasSize.x / 2;
+        canvasPos.y += canvasSize.y / 2; 
+        int windowCount = summons.Length;
+        float deltaPosX = canvasSize.x / (windowCount);
+                                                            
+        while (windowCount > 0)
         {
             elapstedTime += Time.deltaTime;
             if (elapstedTime >= summonInterval)
             {
-#if true  // Random everything
-                position.x = Random.Range(canvasPos.x-canvasSize.x/2, canvasPos.x + canvasSize.x / 2);
-                float WindowDropResizeTime = Random.Range(resizeTimeRange.x, resizeTimeRange.y);
-                float WindowResizeDelta = Random.Range(resizeDeltaRange.x, resizeDeltaRange.y);
-                Vector2 WindowInitialSize = new Vector2(
-                    Random.Range(initialSizeXRange.x, initialSizeXRange.y),
-                    Random.Range(initialSizeXRange.x, initialSizeXRange.y));
-#endif
-                //position += deltaPosX; 
-
-                CreatePopUp(position, WindowInitialSize).AnimateResize(WindowDropResizeTime, WindowResizeDelta, null);
+                SummonInfo info = summons[summons.Length - windowCount];
+                CreatePopUp(new Vector2(canvasPos.x + deltaPosX * windowCount, canvasPos.y), info.initSize).AnimateResize(info.resizeTime, info.sizeDelta, null);
                 elapstedTime -= summonInterval;
-                ++c;
+                --windowCount;
             }
             yield return null;
         }

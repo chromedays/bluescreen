@@ -5,17 +5,11 @@ using UnityEngine;
 public class TestEverything : MonoBehaviour
 {
     WindowsXP Xp;
-
-    public Vector2 WindowDropResizeTimeMinMax;
-    public Vector2 WindowSummonIntervalMinMax;
-    public Vector2 WindowCountToDropMinMax;
-    public Vector2 windowResizeDeltaMinMax;
-    public Vector2 windowInitialSizeXRange;
-    public Vector2 windowInitialSizeYRange;
-
+                                               
     public Vector2 DropIntervalRange;
     float dropInterval;
     float elapsedTime;
+    int currpattern = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,22 +21,16 @@ public class TestEverything : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Tab))
+            ++currpattern;
+
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= dropInterval)
         {
-#if false // Random everything
-            float WindowResizeDelta = Random.Range(windowResizeDeltaMinMax.x, windowResizeDeltaMinMax.y);
-            float WindowDropResizeTime = Random.Range(WindowDropResizeTimeMinMax.x, WindowDropResizeTimeMinMax.y);
-#endif
-            float WindowSummonInterval = Random.Range(WindowSummonIntervalMinMax.x, WindowSummonIntervalMinMax.y);
-            float WindowCountToDrop = Random.Range(WindowCountToDropMinMax.x, WindowCountToDropMinMax.y);
+            if (currpattern >= Xp.Patterns.Count)
+                currpattern = 0;
 
-            Xp.DropWindows(WindowDropResizeTimeMinMax,
-                WindowSummonInterval, 
-                (int)WindowCountToDrop,
-                windowResizeDeltaMinMax,
-                windowInitialSizeXRange,
-                windowInitialSizeYRange);
+            Xp.DropWindows(currpattern);
 
             dropInterval = Random.Range(DropIntervalRange.x, DropIntervalRange.y);
             elapsedTime = 0;
