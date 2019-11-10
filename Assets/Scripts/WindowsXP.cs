@@ -31,9 +31,9 @@ public class SummonInfo
 [System.Serializable]
 public class PatternInfo
 {
+    public int count;
     public float summonInterval;
     public SummonInfo common;
-    public int count;
     public SummonInfo[] summons;
 }
                                                 
@@ -50,7 +50,8 @@ public class WindowsXP : MonoBehaviour
 
     public float WindowAliveTime = 1.0f;
     public float WindowFadeOutTime = 1.0f;
-
+    public float CamShakAmountScaler = 1.0f;
+    public float FragmentScaler = 1.0f;
 
     //Testing
     WindowSize currWin = WindowSize.eExtraSmall;

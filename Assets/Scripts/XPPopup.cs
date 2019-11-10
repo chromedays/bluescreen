@@ -10,6 +10,9 @@ public class XPPopup : MonoBehaviour
 
     public bool HitPlayer = false;
     public bool Destorying = false;
+
+    public Vector2 EndSize;
+    public float EndSizeArea = 1;
                                                
 
     // Start is called before the first frame update
@@ -40,6 +43,8 @@ public class XPPopup : MonoBehaviour
                               
     public void AnimateResize(float time, Vector2 endSize)
     {
+        EndSize = endSize;
+        EndSizeArea = endSize.x * endSize.y;
         if (time != 0.0f)
         {
             Vector2 deltaShrink = (endSize - Rect.sizeDelta) / time;
@@ -73,12 +78,20 @@ public class XPPopup : MonoBehaviour
     {                                 
         if (collision.collider.gameObject.CompareTag("Ground"))
         {
-            Game.Inst.FragmentGenerator.CreateFragment(transform.position, 1);
+            CameraShake cs = Game.Inst.CameraShake;
+            WindowsXP xp = Game.Inst.WindowsXP;
+            FragmentGenerator fg = Game.Inst.FragmentGenerator;
 
-            Game.Inst.CameraShake.ShakeCamera();
-            
-            StartCoroutine(FadeOutAndDestroy(Game.Inst.WindowsXP.WindowAliveTime, 
-                Game.Inst.WindowsXP.WindowFadeOutTime));
+
+            Vector2 offset = new Vector2(
+                Random.Range(0, EndSize.x), 
+                Random.Range(0, -EndSize.y));   
+            fg.CreateFragment(transform.position.ToVector2() + offset, EndSizeArea * xp.FragmentScaler);
+
+            cs.ShakeAmount = xp.CamShakAmountScaler * EndSizeArea;
+            cs.ShakeCamera();
+
+            StartCoroutine(FadeOutAndDestroy(xp.WindowAliveTime, xp.WindowFadeOutTime));
         }
     }
 }
