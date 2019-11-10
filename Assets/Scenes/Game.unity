@@ -1714,7 +1714,7 @@ PrefabInstance:
     - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
       propertyPath: Patterns.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
@@ -1966,6 +1966,30 @@ PrefabInstance:
       propertyPath: Patterns.Array.data[3].count
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
+        type: 3}
+      propertyPath: Patterns.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5858af06f9850a748a1122a88d9fa7f7,
+        type: 2}
+    - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
+        type: 3}
+      propertyPath: Patterns.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5858af06f9850a748a1122a88d9fa7f7,
+        type: 2}
+    - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
+        type: 3}
+      propertyPath: Patterns.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5858af06f9850a748a1122a88d9fa7f7,
+        type: 2}
+    - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
+        type: 3}
+      propertyPath: Patterns.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5858af06f9850a748a1122a88d9fa7f7,
+        type: 2}
     - target: {fileID: 7817435931030042905, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
       propertyPath: DropIntervalRange.y

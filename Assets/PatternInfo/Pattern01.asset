@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1467416352689c498eb69f0f99ac503, type: 3}
+  m_Name: Pattern01
+  m_EditorClassIdentifier: 
+  summonInterval: 0.3
+  data:
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 7
+    scaler: 0
+    resizeTime: 0.2
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    scaler: 1
+    resizeTime: 0.2
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    scaler: 2
+    resizeTime: 0.2
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    scaler: 3
+    resizeTime: 0.2
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    scaler: 4
+    resizeTime: 0.2
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    scaler: 5
+    resizeTime: 0.2
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    scaler: 6
+    resizeTime: 0.2
+  coolTime: 2
+  description: rains small size of windows
