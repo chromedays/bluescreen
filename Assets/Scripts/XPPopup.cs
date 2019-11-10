@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Assertions;
 
 public class XPPopup : MonoBehaviour
-{                                     
+{
     public RectTransform Rect;
 
     public bool HitPlayer = false;
@@ -13,7 +13,8 @@ public class XPPopup : MonoBehaviour
 
     public Vector2 EndSize;
     public float EndSizeArea = 1;
-                                               
+
+    public AudioSource CollisionSfx;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class XPPopup : MonoBehaviour
     IEnumerator Resize(float time, Vector2 deltaShrink)
     {
         float timeLeft = time;
-        GetComponent<Rigidbody2D>().simulated = false;      
+        GetComponent<Rigidbody2D>().simulated = false;
 
         for (timeLeft = time; timeLeft >= Time.deltaTime; timeLeft -= Time.deltaTime)
         {
@@ -84,8 +85,8 @@ public class XPPopup : MonoBehaviour
 
 
             Vector2 offset = new Vector2(
-                Random.Range(0, EndSize.x), 
-                Random.Range(0, -EndSize.y));   
+                Random.Range(0, EndSize.x),
+                Random.Range(0, -EndSize.y));
             fg.CreateFragment(transform.position.ToVector2() + offset, EndSizeArea * xp.FragmentScaler);
 
             cs.ShakeAmount = xp.CamShakAmountScaler * EndSizeArea;
@@ -94,6 +95,7 @@ public class XPPopup : MonoBehaviour
             StartCoroutine(FadeOutAndDestroy(xp.WindowAliveTime, xp.WindowFadeOutTime));
 
             Game.Inst.WindowsHP.ReduceLife();
+            CollisionSfx.Play();
         }
     }
 }
