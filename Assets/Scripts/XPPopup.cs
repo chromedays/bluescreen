@@ -94,7 +94,6 @@ public class XPPopup : MonoBehaviour
 
             StartCoroutine(FadeOutAndDestroy(xp.WindowAliveTime, xp.WindowFadeOutTime));
 
-            Game.Inst.WindowsHP.ReduceLife();
             CollisionSfx.Play();
         }
     }

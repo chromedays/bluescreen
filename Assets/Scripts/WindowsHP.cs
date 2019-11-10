@@ -3,28 +3,27 @@ using UnityEngine.Assertions;
 
 public class WindowsHP : MonoBehaviour
 {
-    public int MaxLifeCount = 100;
+    public float MaxLifeSpanInSeconds = 70f;
     public GlitchEffect Glitch;
 
-    private int _lifeCount;
+    private float _lifeT = 0f;
 
     void Start()
     {
-        _lifeCount = MaxLifeCount;
-
         Assert.IsNull(Game.Inst.WindowsHP);
+        _lifeT = 0f;
         Game.Inst.WindowsHP = this;
     }
 
-    public void ReduceLife()
+    void Update()
     {
-        if (_lifeCount <= 0)
-            return;
-        --_lifeCount;
+        _lifeT += Time.deltaTime;
+        if (_lifeT > MaxLifeSpanInSeconds)
+            _lifeT = MaxLifeSpanInSeconds;
 
-        float intensity = 1 - ((float)_lifeCount / (float)MaxLifeCount);
+        float intensity = _lifeT / MaxLifeSpanInSeconds;
         Glitch.intensity = intensity;
-        Glitch.flipIntensity = intensity;
-        Glitch.colorIntensity = intensity * 0.25f;
+        Glitch.flipIntensity = Mathf.Max(intensity - 0.02f, 0f);
+        //Glitch.colorIntensity = intensity * 0.25f;
     }
 }
