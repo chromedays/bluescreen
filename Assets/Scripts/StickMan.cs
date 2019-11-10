@@ -42,6 +42,9 @@ public class StickMan : MonoBehaviour
     // DeathEffect
     public GameObject DeathEffectPrefab;
 
+    public AudioSource HitSfx;
+    public AudioSource DeathSfx;
+
     void Start()
     {
         _collider = GetComponent<BoxCollider2D>();
@@ -107,11 +110,16 @@ public class StickMan : MonoBehaviour
                     _lifeBar.ReduceLife();
                     if (_lifeCount <= 0)
                     {
+                        DeathSfx.Play();
                         Destroy(_lifeBar.gameObject);
                         Game.Inst.StickManLifeBar = null;
                         Destroy(gameObject);
                         Game.Inst.StickMan = null;
                         Instantiate(DeathEffectPrefab, transform.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        HitSfx.Play();
                     }
                     popup.HitPlayer = true;
                 }
