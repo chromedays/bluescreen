@@ -27,6 +27,9 @@ public class StickMan : MonoBehaviour
     private int _lifeCount;
     private StickManLifeBar _lifeBar = null;
 
+    // Animation
+    public Animator Anim;
+
     void Start()
     {
         _collider = GetComponent<BoxCollider2D>();
@@ -43,15 +46,41 @@ public class StickMan : MonoBehaviour
 
         float moveInput = Input.GetAxisRaw("Horizontal");
         if (moveInput != 0)
-            _velocity.x = Mathf.MoveTowards(_velocity.x, MovementSpeed * moveInput, MovementAcceleration * Time.deltaTime);
+        {
+            _velocity.x = Mathf.MoveTowards(_velocity.x, MovementSpeed * moveInput,
+                MovementAcceleration * Time.deltaTime);
+            var oldScale = GetComponentInChildren<Transform>().localScale;
+            oldScale.x = _velocity.x > 0 ? -1f : 1f;
+            GetComponentInChildren<Transform>().localScale = oldScale;
+        }
         else
+        {
             _velocity.x = Mathf.MoveTowards(_velocity.x, 0, MovementDeceleration * Time.deltaTime);
+        }
+
+        //GetComponent<SpriteRenderer>().flipX = _velocity.x > 0;
+#if false
+
+        if (_velocity.x != 0)
+        {
+            if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+                Anim.Play("Run");
+        }
+        else
+        {
+            if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                Anim.Play("Idle");
+        }
+#endif
 
         if (_isGrounded)
         {
             _velocity.y = 0;
             if (Input.GetKeyDown(KeyCode.Space))
+            {
                 _velocity.y = Mathf.Sqrt(2 * JumpHeight * Mathf.Abs(Physics2D.gravity.y));
+                Anim.Play("Jump");
+            }
         }
         _velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
@@ -59,7 +88,7 @@ public class StickMan : MonoBehaviour
 
         var colliderSize = _collider.size * transform.localScale;
 
-        var hits = Physics2D.OverlapBoxAll(transform.position.ToVector2(), colliderSize, 0);
+        var hits = Physics2D.OverlapBoxAll(transform.position.ToVector2() + _collider.offset, colliderSize, 0);
 
         _isGrounded = false;
         foreach (var hit in hits)
@@ -92,7 +121,11 @@ public class StickMan : MonoBehaviour
                 if (colliderDistance.isOverlapped)
                 {
                     if (Vector2.Angle(colliderDistance.normal, Vector2.up) < 90 && _velocity.y < 0)
+                    {
                         _isGrounded = true;
+                        Anim.Play("Idle");
+                    }
+
                     transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
                 }
             }

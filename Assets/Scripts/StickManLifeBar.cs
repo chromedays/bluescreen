@@ -33,7 +33,9 @@ public class StickManLifeBar : MonoBehaviour
     }
 
     public void ReduceLife()
-    {   
+    {
+        if (_lifes.Count <= 0)
+            return;
         var life = _lifes[_lifes.Count - 1];
         Destroy(life);
         _lifes.RemoveAt(_lifes.Count - 1);
