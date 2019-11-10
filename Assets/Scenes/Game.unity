@@ -2162,12 +2162,12 @@ PrefabInstance:
     - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
       propertyPath: startPattern
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
       propertyPath: loop
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7817435931030042907, guid: a860978aafd39ba4c9f45bd8900b32e4,
         type: 3}
@@ -2270,7 +2270,8 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7817435931030042905, guid: a860978aafd39ba4c9f45bd8900b32e4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a860978aafd39ba4c9f45bd8900b32e4, type: 3}
 --- !u!1001 &8709939052239547625
 PrefabInstance:

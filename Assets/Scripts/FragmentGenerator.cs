@@ -36,7 +36,7 @@ public class FragmentGenerator : MonoBehaviour
             scaler = FragMinScale;
         if (scaler > FragMaxScale)
             scaler = FragMaxScale;
-
+                      
         Quaternion randomRot = Quaternion.AngleAxis(Random.Range(FragRotMin, FragRotMax), Vector3.forward);
         GameObject fragment = Instantiate(FragmentPrefab, position, randomRot, FragmentParentObj);
         fragment.transform.localScale = new Vector3(scaler, scaler,1);
