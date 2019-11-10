@@ -79,6 +79,8 @@ public class XPPopup : MonoBehaviour
         if (collision.collider.gameObject.CompareTag("Ground"))
         {
             Game.Inst.FragmentGenerator.CreateFragment(transform.position, 1);
+
+            Game.Inst.CameraShake.ShakeCamera();
             
             StartCoroutine(FadeOutAndDestroy(Game.Inst.WindowsXP.WindowAliveTime, 
                 Game.Inst.WindowsXP.WindowFadeOutTime));

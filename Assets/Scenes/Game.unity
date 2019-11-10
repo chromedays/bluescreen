@@ -608,6 +608,7 @@ GameObject:
   - component: {fileID: 1468220860}
   - component: {fileID: 1468220859}
   - component: {fileID: 1468220862}
+  - component: {fileID: 1468220863}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -697,6 +698,20 @@ MonoBehaviour:
   intensity: 0
   flipIntensity: 0
   colorIntensity: 0
+--- !u!114 &1468220863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468220858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d405cbaf6d33c8458d5ba9810644ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShakeAmount: 0.5
+  ShakeDuration: 0.2
 --- !u!224 &1498686474 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2731770812185112328, guid: c671b9ce1725d7b4cbd36e63f39660b4,
@@ -770,7 +785,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1474416268104220896, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c, type: 3}
 --- !u!1 &1824225289
 GameObject:
@@ -927,6 +943,11 @@ PrefabInstance:
       propertyPath: WindowsXP
       value: 
       objectReference: {fileID: 1097820184}
+    - target: {fileID: 2129586343737484324, guid: 1d5499783ae5aa04aa18dc5ae375fb65,
+        type: 3}
+      propertyPath: CameraShake
+      value: 
+      objectReference: {fileID: 1468220863}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d5499783ae5aa04aa18dc5ae375fb65, type: 3}
 --- !u!1001 &2731770813681683202

@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     public WindowsHP WindowsHP = null;
     public FragmentGenerator FragmentGenerator = null;
     public WindowsXP WindowsXP = null;
+    public CameraShake CameraShake = null;
 
     void Awake()
     {
