@@ -733,7 +733,7 @@ PrefabInstance:
     - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
       propertyPath: BlinkCount
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
@@ -743,17 +743,27 @@ PrefabInstance:
     - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
       propertyPath: BlinkColor.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
       propertyPath: BlinkColor.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
       propertyPath: BlinkColor.a
-      value: 0.23921569
+      value: 0.09019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: BlinkDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: MaxLifeCount
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1474416268104220897, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
