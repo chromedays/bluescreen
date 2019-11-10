@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public static class ExtensionMethods
 {
@@ -116,6 +117,14 @@ public class StickMan : MonoBehaviour
                         Destroy(gameObject);
                         Game.Inst.StickMan = null;
                         Instantiate(DeathEffectPrefab, transform.position, Quaternion.identity);
+
+                        IEnumerator GoBackToStartScene()
+                        {
+                            yield return new WaitForSeconds(3);
+                            SceneManager.LoadScene("Start");
+                        }
+
+                        Game.Inst.StartCoroutine(GoBackToStartScene());
                     }
                     else
                     {
