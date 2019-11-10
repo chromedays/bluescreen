@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
     public static Game Inst = null;
 
     public StickMan StickMan = null;
+    public StickManLifeBar StickManLifeBar = null;
 
     void Awake()
     {

@@ -5,10 +5,11 @@ using UnityEngine.Events;
 [RequireComponent(typeof(StickMan))]
 public class StickManHP : MonoBehaviour
 {
-    public int MaxLife = 5;
+    public int MaxLifeCount = 5;
 
-    private int _life;
+    private int _lifeCount;
     private List<int> _collidedInstanceIds = new List<int>();
+    private StickManLifeBar _lifeBar = null;
 
     void OnCollision(int id)
     {
@@ -16,10 +17,13 @@ public class StickManHP : MonoBehaviour
             return;
         _collidedInstanceIds.Add(id);
 
-        --_life;
+        --_lifeCount;
+        _lifeBar.ReduceLife();
 
-        if (_life <= 0)
+        if (_lifeCount <= 0)
         {
+            Destroy(_lifeBar.gameObject);
+            Game.Inst.StickManLifeBar = null;
             Destroy(gameObject);
             Game.Inst.StickMan = null;
         }
@@ -30,7 +34,7 @@ public class StickManHP : MonoBehaviour
     {
         GetComponent<StickMan>().OnProjectileCollision.AddListener(OnCollision);
 
-        _life = MaxLife;
+        _lifeCount = MaxLifeCount;
     }
 
     void OnDestroy()
@@ -41,5 +45,12 @@ public class StickManHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_lifeBar == null && Game.Inst.StickManLifeBar)
+        {
+            _lifeBar = Game.Inst.StickManLifeBar;
+            _lifeBar.InitLife(_lifeCount);
+        }
+        if (_lifeBar)
+            _lifeBar.transform.position = transform.position + new Vector3(0, 0.5f, 0);
     }
 }
