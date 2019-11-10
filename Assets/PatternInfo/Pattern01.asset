@@ -17,37 +17,44 @@ MonoBehaviour:
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     pos: 7
-    scaler: 0
     resizeTime: 0.2
+    scaler:
+    - 0
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     pos: 8
-    scaler: 1
     resizeTime: 0.2
+    scaler:
+    - 1
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     pos: 8
-    scaler: 2
     resizeTime: 0.2
+    scaler:
+    - 2
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     pos: 8
-    scaler: 3
     resizeTime: 0.2
+    scaler:
+    - 3
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     pos: 8
-    scaler: 4
     resizeTime: 0.2
+    scaler:
+    - 4
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     pos: 8
-    scaler: 5
     resizeTime: 0.2
+    scaler:
+    - 5
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     pos: 8
-    scaler: 6
     resizeTime: 0.2
+    scaler:
+    - 6
   coolTime: 2
   description: rains small size of windows

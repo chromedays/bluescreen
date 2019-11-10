@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 466602894be74d54a94039a7326ae48b, type: 3}
   m_Name: LongMedium
   m_EditorClassIdentifier: 
-  sizeX: 0
-  sizeY: 0
+  sizeX: 0.16666667
+  sizeY: 0.6666667
