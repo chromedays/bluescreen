@@ -20,20 +20,26 @@ MonoBehaviour:
     resizeTime: 0
     scaler:
     - 0
-  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
-    endSize: {fileID: 11400000, guid: 632163f1bee15654eb1c4573edf0fd81, type: 2}
-    pos: 5
+  - startSize: {fileID: 11400000, guid: 632163f1bee15654eb1c4573edf0fd81, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 11
     resizeTime: 0.25
     scaler:
-    - 1
-    - 2
-    - 3
     - 4
+    - 6
+    - 8
   - startSize: {fileID: 11400000, guid: cf5857f6a578e0243b8a641f62fc4470, type: 2}
     endSize: {fileID: 11400000, guid: cf5857f6a578e0243b8a641f62fc4470, type: 2}
     pos: 5
-    resizeTime: 0.25
+    resizeTime: 0
     scaler:
     - 6
+  - startSize: {fileID: 11400000, guid: 632163f1bee15654eb1c4573edf0fd81, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 11
+    resizeTime: 0.25
+    scaler:
+    - 5
+    - 7
   coolTime: 2
   description: Long small small Left
