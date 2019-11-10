@@ -24,24 +24,21 @@ public class PatternInfo
 public class WindowsXP : MonoBehaviour
 {                                     
     public Canvas ScreenCanvas;
-    public GameObject PopupPrefab;
-    public AudioSource PopupErrorSound;
-    public GameObject MouseGameObj;
-                                       
+    public GameObject PopupPrefab;      
+
     public List<PatternInfo> Patterns = new List<PatternInfo>();
 
     // Start is called before the first frame update
     void Start()
     {
         Assert.IsNotNull(ScreenCanvas, "Screen Canvas should not be null!");
-        Assert.IsNotNull(PopupPrefab, "Popup Prefab should not be null!");
-        Assert.IsNotNull(PopupErrorSound, "PopupErrorSound should not be null!");
-        Assert.IsNotNull(MouseGameObj, "MouseGameObj should not be null!");
+        Assert.IsNotNull(PopupPrefab, "Popup Prefab should not be null!");     
     }
 
     public void DropWindows(int patternIndex)
     {
         Assert.IsNotNull(Patterns, "Pattern is Empty!");
+        Assert.IsFalse(Patterns.Count <= patternIndex, "Congrate! Out of Index!");
 
         IEnumerator summonWindows = SummonWindows(Patterns[patternIndex].summonInterval, Patterns[patternIndex].summons);
 
@@ -65,7 +62,7 @@ public class WindowsXP : MonoBehaviour
             if (elapstedTime >= summonInterval)
             {
                 SummonInfo info = summons[summons.Length - windowCount];
-                CreatePopUp(new Vector2(canvasPos.x + deltaPosX * windowCount, canvasPos.y), info.initSize).AnimateResize(info.resizeTime, info.sizeDelta, null);
+                CreatePopUp(new Vector2(canvasPos.x + deltaPosX * windowCount, canvasPos.y), info.initSize).AnimateResize(info.resizeTime, info.sizeDelta);
                 elapstedTime -= summonInterval;
                 --windowCount;
             }
@@ -82,9 +79,6 @@ public class WindowsXP : MonoBehaviour
         rect.sizeDelta = size;
 
         XPPopup popupComp = Popup.GetComponent<XPPopup>();
-
-        //PopupErrorSound.Play();
-  
         return popupComp;
     }
                 

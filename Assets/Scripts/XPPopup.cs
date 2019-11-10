@@ -8,21 +8,14 @@ public class XPPopup : MonoBehaviour
 {
     public Button CloseButton;
     public Text Message;
-    public RectTransform Rect;
-    public BoxCollider2D Box2D;
-                                      
-    public delegate void Func();
-    public Func OnResizeEnd;
-                                      
+    public RectTransform Rect;   
+                                         
     // Start is called before the first frame update
     void Start()
     {
         Assert.IsNotNull(CloseButton, "close Button should not be null!");
         Assert.IsNotNull(Message, "message Text should not be null!");
-
-        Assert.IsNotNull(Rect, "Rect should not be null!");
-        Assert.IsNotNull(Box2D, "Box2D should not be null!");
-
+        Assert.IsNotNull(Rect, "Rect should not be null!");    
     }
 
     // Update is called once per frame
@@ -48,15 +41,13 @@ public class XPPopup : MonoBehaviour
         }
 
         SetSizeAnchoredTopLeft(Rect.sizeDelta + new Vector2(-timeLeft* deltaSizePerSec, timeLeft* deltaSizePerSec));
-        OnResizeEnd?.Invoke();
+        //OnResizeEnd?.Invoke();
 
         GetComponent<Rigidbody2D>().simulated = true;
     }
       
-    public void AnimateResize(float time, float deltaSizePerSec, Func calledAfter)
-    {
-        OnResizeEnd = calledAfter;
-
+    public void AnimateResize(float time, float deltaSizePerSec)
+    {                            
         float unit = time * deltaSizePerSec;
                            
         Vector2 newSize = Rect.sizeDelta + new Vector2(unit, unit);
