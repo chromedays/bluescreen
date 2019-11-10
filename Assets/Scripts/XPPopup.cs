@@ -5,20 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.Assertions;    
 
 public class XPPopup : MonoBehaviour
-{
-    public Button CloseButton;
-    public Text Message;
+{                                     
     public RectTransform Rect;
 
     public bool HitPlayer = false;
     public bool Destorying = false;
+                                               
 
     // Start is called before the first frame update
     void Start()
     {
-        Assert.IsNotNull(CloseButton, "close Button should not be null!");
-        Assert.IsNotNull(Message, "message Text should not be null!");
-        Assert.IsNotNull(Rect, "Rect should not be null!");
     }
 
     // Update is called once per frame
@@ -29,7 +25,7 @@ public class XPPopup : MonoBehaviour
     IEnumerator Resize(float time, Vector2 deltaShrink)
     {
         float timeLeft = time;
-        GetComponent<Rigidbody2D>().simulated = false;
+        GetComponent<Rigidbody2D>().simulated = false;      
 
         for (timeLeft = time; timeLeft >= Time.deltaTime; timeLeft -= Time.deltaTime)
         {
@@ -38,7 +34,6 @@ public class XPPopup : MonoBehaviour
         }
 
         Rect.sizeDelta = Rect.sizeDelta + deltaShrink * timeLeft;
-        //OnResizeEnd?.Invoke();
 
         GetComponent<Rigidbody2D>().simulated = true;
     }
