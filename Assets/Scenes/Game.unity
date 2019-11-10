@@ -754,6 +754,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: StickMan
       objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: BlinkCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: BlinkColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: BlinkColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: BlinkColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: BlinkColor.a
+      value: 0.23921569
+      objectReference: {fileID: 0}
     - target: {fileID: 1474416268104220897, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,10 +32,18 @@ public class StickMan : MonoBehaviour
     // Animation
     public Animator Anim;
 
+    // Blink Effect
+    public Color BlinkColor;
+    public int BlinkCount = 5;
+    public float BlinkDuration = 0.1f;
+    private bool _isBlinking;
+    private SpriteRenderer[] _sprites;
+
     void Start()
     {
         _collider = GetComponent<BoxCollider2D>();
         _lifeCount = MaxLifeCount;
+        _sprites = GetComponentsInChildren<SpriteRenderer>();
     }
 
     void TryPlayAnim(string name)
@@ -64,7 +74,6 @@ public class StickMan : MonoBehaviour
             _velocity.x = Mathf.MoveTowards(_velocity.x, 0, MovementDeceleration * Time.deltaTime);
         }
 
-
         if (_isGrounded)
         {
             _velocity.y = 0;
@@ -88,8 +97,9 @@ public class StickMan : MonoBehaviour
             if (hit.gameObject.layer == LayerMask.NameToLayer("Windows"))
             {
                 var popup = hit.gameObject.GetComponent<XPPopup>();
-                if (popup.HitPlayer == false)
+                if (popup.HitPlayer == false && _isBlinking == false)
                 {
+                    Blink();
                     --_lifeCount;
                     _lifeBar.ReduceLife();
                     if (_lifeCount <= 0)
@@ -126,5 +136,36 @@ public class StickMan : MonoBehaviour
 
         if (_lifeBar)
             _lifeBar.transform.position = transform.position + new Vector3(0, 0.5f, 0);
+    }
+
+    void Blink()
+    {
+        if (_isBlinking)
+            return;
+
+        _isBlinking = true;
+        var oldColors = _sprites.Select(s => s.color).ToArray();
+        StartCoroutine(BlinkCo(BlinkCount * 2 - 1, _sprites, oldColors));
+    }
+
+    IEnumerator BlinkCo(int stopAt, SpriteRenderer[] sprites, Color[] oldColors)
+    {
+        for (int i = 0; i <= stopAt; ++i)
+        {
+            for (int si = 0; si < sprites.Length; ++si)
+            {
+                if (i <= stopAt)
+                {
+                    if (i % 2 == 0)
+                        sprites[si].color = BlinkColor;
+                    else
+                        sprites[si].color = oldColors[si];
+
+                }
+            }
+            yield return new WaitForSeconds(BlinkDuration / (float)BlinkCount);
+        }
+
+        _isBlinking = false;
     }
 }
