@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 public class WindowsHP : MonoBehaviour
 {
     public float MaxLifeSpanInSeconds = 70f;
     public GlitchEffect Glitch;
+    public AudioSource[] AllSfxs;
+    public SpriteRenderer Bluescreen;
 
     private float _lifeT = 0f;
 
@@ -19,7 +22,11 @@ public class WindowsHP : MonoBehaviour
     {
         _lifeT += Time.deltaTime;
         if (_lifeT > MaxLifeSpanInSeconds)
-            _lifeT = MaxLifeSpanInSeconds;
+        {
+            if (Game.Inst.IsGameEnd == false)
+                Game.Inst.Win();
+            return;
+        }
 
         float intensity = _lifeT / MaxLifeSpanInSeconds;
         Glitch.intensity = intensity;
