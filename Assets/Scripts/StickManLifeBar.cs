@@ -13,6 +13,5 @@ public class StickManLifeBar : MonoBehaviour
     // Update is called once per frame
     void PreUpdate()
     {
-        transform.position = Game.Inst.StickMan.transform.position + new Vector3(0, 0.5f, 0);
     }
 }
