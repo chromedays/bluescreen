@@ -24,6 +24,7 @@ public class IconBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Target = Game.Inst.StickMan;
     }
 
     // Update is called once per frame
