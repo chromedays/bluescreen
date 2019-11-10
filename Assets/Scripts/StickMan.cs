@@ -39,6 +39,9 @@ public class StickMan : MonoBehaviour
     private bool _isBlinking;
     private SpriteRenderer[] _sprites;
 
+    // DeathEffect
+    public GameObject DeathEffectPrefab;
+
     void Start()
     {
         _collider = GetComponent<BoxCollider2D>();
@@ -108,6 +111,7 @@ public class StickMan : MonoBehaviour
                         Game.Inst.StickManLifeBar = null;
                         Destroy(gameObject);
                         Game.Inst.StickMan = null;
+                        Instantiate(DeathEffectPrefab, transform.position, Quaternion.identity);
                     }
                     popup.HitPlayer = true;
                 }
