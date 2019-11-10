@@ -765,6 +765,12 @@ PrefabInstance:
       propertyPath: MaxLifeCount
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1474416268104220902, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
+        type: 3}
+      propertyPath: DeathEffectPrefab
+      value: 
+      objectReference: {fileID: 9065213494861227899, guid: 5376b2519f0592f4a8ddcd01b272d78c,
+        type: 3}
     - target: {fileID: 1474416268104220897, guid: 383d01ddd86bd2b4abc2d994ffc0bc4c,
         type: 3}
       propertyPath: m_LocalPosition.x
