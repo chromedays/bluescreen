@@ -133,7 +133,7 @@ public class WindowsXP : MonoBehaviour
                 else
                 {
 
-                    posX = common.posX + DX * Count;
+                    posX = common.posX + DX * (Count-1);
                 }
 
                 Vector2 Pos = new Vector2(deltaX*posX, -Margin.y);
@@ -146,8 +146,8 @@ public class WindowsXP : MonoBehaviour
                 CreatePopUp(Pos, Size).AnimateResize(info.resizeTime, EndSize);
                 elapstedTime -= summonInterval;
                 --Count;
-                yield return null;
             }
+            yield return null;
         }
     }
 

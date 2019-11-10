@@ -10,6 +10,7 @@ public class TestEverything : MonoBehaviour
     float dropInterval;
     float elapsedTime;
     int currpattern = 0;
+    bool stop = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,18 +23,24 @@ public class TestEverything : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Tab))
-            ++currpattern;
-
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime >= dropInterval)
         {
-            if (currpattern >= Xp.Patterns.Count)
-                currpattern = 0;
+            stop = !stop;
+        }
 
-            Xp.DropWindows(currpattern);
+        if (!stop)
+        {
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= dropInterval)
+            {
+                if (currpattern >= Xp.Patterns.Count)
+                    currpattern = 0;
 
-            dropInterval = Random.Range(DropIntervalRange.x, DropIntervalRange.y);
-            elapsedTime = 0;
+                Xp.DropWindows(currpattern);
+
+                ++currpattern;
+                dropInterval = Random.Range(DropIntervalRange.x, DropIntervalRange.y);
+                elapsedTime = 0;
+            }
         }
     }
     

@@ -39,10 +39,13 @@ public class XPPopup : MonoBehaviour
 
         GetComponent<Rigidbody2D>().simulated = true;
     }
-      
+                                               
     public void AnimateResize(float time, Vector2 endSize)
-    {       
-        Vector2 deltaShrink = (endSize - Rect.sizeDelta) / time;
-        StartCoroutine(Resize(time, deltaShrink));
+    {
+        if (time != 0.0f)
+        {
+            Vector2 deltaShrink = (endSize - Rect.sizeDelta) / time;
+            StartCoroutine(Resize(time, deltaShrink));
+        }
     }
 }
