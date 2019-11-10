@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
 
     public StickMan StickMan = null;
     public StickManLifeBar StickManLifeBar = null;
+    public WindowsHP WindowsHP = null;
 
     void Awake()
     {
