@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Assertions;
+using UnityEngine.Assertions;    
 
 public class XPPopup : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class XPPopup : MonoBehaviour
     public RectTransform Rect;
 
     public bool HitPlayer = false;
+    public bool Destorying = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +52,36 @@ public class XPPopup : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator FadeOutAndDestroy(float aliveTime, float fadeoutTime)
     {
-        //if(collision.gameObject == )
+        yield return new WaitForSeconds(aliveTime);        
+
+        Destorying = true;
+
+        Image[] images = GetComponentsInChildren<Image>(false);
+
+        foreach (Image img in images)
+            img.color += new Color(0, 0, 0, -img.color.a / 3);
+
+        float dA = 1.0f / fadeoutTime; 
+        while (fadeoutTime > 0)
+        {
+            foreach (Image img in images)
+                img.color += new Color(0,0,0,-dA * Time.deltaTime);
+            fadeoutTime -= Time.deltaTime;
+            yield return null;
+        }             
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {                                 
+        if (collision.collider.gameObject.CompareTag("Ground"))
+        {
+            Game.Inst.FragmentGenerator.CreateFragment(transform.position, 1);
+            
+            StartCoroutine(FadeOutAndDestroy(Game.Inst.WindowsXP.WindowAliveTime, 
+                Game.Inst.WindowsXP.WindowFadeOutTime));
+        }
     }
 }
