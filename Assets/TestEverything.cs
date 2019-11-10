@@ -9,8 +9,7 @@ public class TestEverything : MonoBehaviour
     public float WindowDropResizeTime;
     public float WindowSummonInterval;
     public int WindowCountToDrop;
-
-
+    public float windowResizeDelta;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +24,7 @@ public class TestEverything : MonoBehaviour
         {
             if (Xp)
             {
-                Xp.DropWindows(WindowDropResizeTime, WindowSummonInterval, WindowCountToDrop);
+                Xp.DropWindows(WindowDropResizeTime, WindowSummonInterval, WindowCountToDrop, windowResizeDelta);
             }     
         }
     }

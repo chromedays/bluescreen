@@ -11,9 +11,8 @@ public class WindowsXP : MonoBehaviour
     public AudioSource PopupErrorSound;
     public GameObject MouseGameObj;
 
-    public float WindowResizeTime;
- 
- 
+    public Vector2 WindowDefaultSize;
+                                     
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +20,20 @@ public class WindowsXP : MonoBehaviour
         Assert.IsNotNull(PopupPrefab, "Popup Prefab should not be null!");
         Assert.IsNotNull(PopupErrorSound, "PopupErrorSound should not be null!");
         Assert.IsNotNull(MouseGameObj, "MouseGameObj should not be null!");
-    }                                                             
-    public void DropWindows(float resizeTime, float summonInterval, float windowCounts)
+    }                             
+    
+    public void DropWindows(float resizeTime, float summonInterval, float windowCounts, float windowResizeDelta)
     {                                   
-        StartCoroutine(SummonWindows(resizeTime, summonInterval, windowCounts));
+        StartCoroutine(SummonWindows(resizeTime, summonInterval, windowCounts, windowResizeDelta));
     }
 
-    IEnumerator SummonWindows(float resizeTime, float summonInterval, float windowCounts)
+    IEnumerator SummonWindows(float resizeTime, float summonInterval, float windowCounts, float windowResizeDelta)
     {                                             
         float elapstedTime = summonInterval;
-        Vector2 position = new Vector2(-5, 10);
+        Vector2 canvasPos = ScreenCanvas.transform.position;
+        Vector2 canvasSize = ScreenCanvas.GetComponent<RectTransform>().sizeDelta;
+        Vector2 position = new Vector2(canvasPos.x - canvasSize.x/2, canvasPos.y + canvasSize.y/2);
+        float deltaPosX = canvasSize.x / windowCounts;
         int c = 0;
         while(c < windowCounts)
         {
@@ -38,9 +41,9 @@ public class WindowsXP : MonoBehaviour
             if (elapstedTime >= summonInterval)
             {
                 Debug.Log(c + "th windows: ");
-                CreatePopUp(position).AnimateResize(resizeTime, null);
+                CreatePopUp(position).AnimateResize(resizeTime, windowResizeDelta, null);
                 elapstedTime -= summonInterval;
-                position += new Vector2(0.5f, 0);
+                position.x += deltaPosX;
                 ++c;
             }
             yield return null;
@@ -53,6 +56,7 @@ public class WindowsXP : MonoBehaviour
 
         RectTransform rect = Popup.GetComponent<RectTransform>();
         rect.localPosition = position;
+        rect.sizeDelta = WindowDefaultSize;
 
         XPPopup popupComp = Popup.GetComponent<XPPopup>();
 

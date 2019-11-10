@@ -10,10 +10,7 @@ public class XPPopup : MonoBehaviour
     public Text Message;
     public RectTransform Rect;
     public BoxCollider2D Box2D;
-
-    public float DeltaSizePerSec;      
-
-
+                                      
     public delegate void Func();
     public Func OnResizeEnd;   
  
@@ -42,28 +39,28 @@ public class XPPopup : MonoBehaviour
         Box2D.offset = new Vector2(Box2D.size.x / 2, -Box2D.size.y/2);
     }
                                 
-    IEnumerator Resize(float time)
+    IEnumerator Resize(float time, float deltaSizePerSec)
     {
         float timeLeft = time;
         for (timeLeft = time; timeLeft >= Time.deltaTime; timeLeft -= Time.deltaTime)
         {
-            float dt = Time.deltaTime * DeltaSizePerSec;
+            float dt = Time.deltaTime * deltaSizePerSec;
             AddSizeAnchoredTopLeft(-dt, -dt);
             yield return null;
         }
 
-        AddSizeAnchoredTopLeft(-timeLeft*DeltaSizePerSec, timeLeft*DeltaSizePerSec);
+        AddSizeAnchoredTopLeft(-timeLeft* deltaSizePerSec, timeLeft* deltaSizePerSec);
         OnResizeEnd?.Invoke();
     }
       
-    public void AnimateResize(float time, Func calledAfter)
+    public void AnimateResize(float time, float deltaSizePerSec, Func calledAfter)
     {
         OnResizeEnd = calledAfter;
 
-        float unit = time * DeltaSizePerSec;
+        float unit = time * deltaSizePerSec;
 
         AddSizeAnchoredTopLeft(unit, unit);
-
-        StartCoroutine("Resize", time);
+                                                  
+        StartCoroutine(Resize(time, deltaSizePerSec));
     }
 }
