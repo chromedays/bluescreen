@@ -6,26 +6,47 @@ public class TestEverything : MonoBehaviour
 {
     WindowsXP Xp;
 
-    public float WindowDropResizeTime;
-    public float WindowSummonInterval;
-    public int WindowCountToDrop;
-    public float windowResizeDelta;
+    public Vector2 WindowDropResizeTimeMinMax;
+    public Vector2 WindowSummonIntervalMinMax;
+    public Vector2 WindowCountToDropMinMax;
+    public Vector2 windowResizeDeltaMinMax;
+    public Vector2 windowInitialSizeXRange;
+    public Vector2 windowInitialSizeYRange;
 
+    public Vector2 DropIntervalRange;
+    float dropInterval;
+    float elapsedTime;
     // Start is called before the first frame update
     void Start()
     {
-        Xp = GameObject.FindObjectOfType<WindowsXP>();   
+        Xp = GameObject.FindObjectOfType<WindowsXP>();
+        dropInterval = 0;
+        elapsedTime = 0;
     }
                                        
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.G))
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= dropInterval)
         {
-            if (Xp)
-            {
-                Xp.DropWindows(WindowDropResizeTime, WindowSummonInterval, WindowCountToDrop, windowResizeDelta);
-            }     
+#if false // Random everything
+            float WindowResizeDelta = Random.Range(windowResizeDeltaMinMax.x, windowResizeDeltaMinMax.y);
+            float WindowDropResizeTime = Random.Range(WindowDropResizeTimeMinMax.x, WindowDropResizeTimeMinMax.y);
+#endif
+            float WindowSummonInterval = Random.Range(WindowSummonIntervalMinMax.x, WindowSummonIntervalMinMax.y);
+            float WindowCountToDrop = Random.Range(WindowCountToDropMinMax.x, WindowCountToDropMinMax.y);
+
+            Xp.DropWindows(WindowDropResizeTimeMinMax,
+                WindowSummonInterval, 
+                (int)WindowCountToDrop,
+                windowResizeDeltaMinMax,
+                windowInitialSizeXRange,
+                windowInitialSizeYRange);
+
+            dropInterval = Random.Range(DropIntervalRange.x, DropIntervalRange.y);
+            elapsedTime = 0;
         }
     }
+    
 }
