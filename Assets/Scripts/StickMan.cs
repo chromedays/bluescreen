@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
 
 public static class ExtensionMethods
 {
     public static Vector2 ToVector2(this Vector3 @this) => new Vector2(@this.x, @this.y);
     public static Vector3 ToVector3(this Vector2 @this) => new Vector3(@this.x, @this.y, 0);
+}
+
+public class OnProjectileCollisionEvent : UnityEvent<int>
+{
 }
 
 public class StickMan : MonoBehaviour
@@ -12,6 +18,8 @@ public class StickMan : MonoBehaviour
     public float MovementAcceleration = 75;
     public float MovementDeceleration = 70;
     public float JumpHeight = 4;
+
+    public OnProjectileCollisionEvent OnProjectileCollision = new OnProjectileCollisionEvent();
 
     private BoxCollider2D _collider;
     private bool _isGrounded = false;
@@ -45,7 +53,6 @@ public class StickMan : MonoBehaviour
 
         var hits = Physics2D.OverlapBoxAll(transform.position.ToVector2(), colliderSize, 0);
 
-
         _isGrounded = false;
         foreach (var hit in hits)
         {
@@ -53,8 +60,10 @@ public class StickMan : MonoBehaviour
                 continue;
 
             if (hit.gameObject.layer == LayerMask.NameToLayer("Windows"))
+            {
+                OnProjectileCollision.Invoke(hit.gameObject.GetInstanceID());
                 continue;
-
+            }
 
             var colliderDistance = hit.Distance(_collider);
 
