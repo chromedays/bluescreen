@@ -45,11 +45,16 @@ public class StickMan : MonoBehaviour
 
         var hits = Physics2D.OverlapBoxAll(transform.position.ToVector2(), colliderSize, 0);
 
+
         _isGrounded = false;
         foreach (var hit in hits)
         {
             if (hit == _collider)
                 continue;
+
+            if (hit.gameObject.layer == LayerMask.NameToLayer("Windows"))
+                continue;
+
 
             var colliderDistance = hit.Distance(_collider);
 

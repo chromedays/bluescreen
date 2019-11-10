@@ -42,6 +42,7 @@ public class XPPopup : MonoBehaviour
     IEnumerator Resize(float time, float deltaSizePerSec)
     {
         float timeLeft = time;
+        GetComponent<Rigidbody2D>().simulated = false;
         for (timeLeft = time; timeLeft >= Time.deltaTime; timeLeft -= Time.deltaTime)
         {
             float dt = Time.deltaTime * deltaSizePerSec;
@@ -51,6 +52,8 @@ public class XPPopup : MonoBehaviour
 
         AddSizeAnchoredTopLeft(-timeLeft* deltaSizePerSec, timeLeft* deltaSizePerSec);
         OnResizeEnd?.Invoke();
+
+        GetComponent<Rigidbody2D>().simulated = true;
     }
       
     public void AnimateResize(float time, float deltaSizePerSec, Func calledAfter)

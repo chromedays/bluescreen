@@ -40,7 +40,6 @@ public class WindowsXP : MonoBehaviour
             elapstedTime += Time.deltaTime;
             if (elapstedTime >= summonInterval)
             {
-                Debug.Log(c + "th windows: ");
                 CreatePopUp(position).AnimateResize(resizeTime, windowResizeDelta, null);
                 elapstedTime -= summonInterval;
                 position.x += deltaPosX;
