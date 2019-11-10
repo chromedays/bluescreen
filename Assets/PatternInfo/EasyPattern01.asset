@@ -56,5 +56,23 @@ MonoBehaviour:
     resizeTime: 0.2
     scaler:
     - 6
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    resizeTime: 0.2
+    scaler:
+    - 7
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    resizeTime: 0.2
+    scaler:
+    - 8
+  - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
+    pos: 8
+    resizeTime: 0.2
+    scaler:
+    - 9
   coolTime: 4
   description: rains small size of windows

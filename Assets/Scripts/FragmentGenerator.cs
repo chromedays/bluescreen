@@ -17,6 +17,8 @@ public class FragmentGenerator : MonoBehaviour
     public Vector2 position;
     public float scaler;
 
+    int count = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,7 @@ public class FragmentGenerator : MonoBehaviour
         GameObject fragment = Instantiate(FragmentPrefab, position, randomRot, FragmentParentObj);
         fragment.transform.localScale = new Vector3(scaler, scaler,1);
         fragment.GetComponent<SpriteMask>().sprite = FragmentSprites[Random.Range(0, FragmentSprites.Length)];
+        ++count;
     }
 
 }
