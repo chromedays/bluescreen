@@ -34,6 +34,8 @@ public class IconBullet : MonoBehaviour
         {
             case State.Idle:
                 _idleT += Time.deltaTime;
+                if (_idleT >= IdleTime * 0.5f)
+                    UpdateRotation();
                 if (_idleT >= IdleTime)
                 {
                     _idleT = 0f;
@@ -43,10 +45,15 @@ public class IconBullet : MonoBehaviour
                 }
                 break;
             case State.Bullet:
-                _rotationT += Time.deltaTime;
-                transform.rotation = Quaternion.Euler(0, 0, _rotationT * DegreesPerSec);
+                UpdateRotation();
                 transform.position = transform.position + _velocity.ToVector3() * Time.deltaTime;
                 break;
         }
+    }
+
+    void UpdateRotation()
+    {
+        _rotationT += Time.deltaTime;
+        transform.rotation = Quaternion.Euler(0, 0, _rotationT * DegreesPerSec);
     }
 }
