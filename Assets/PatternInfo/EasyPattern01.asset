@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1467416352689c498eb69f0f99ac503, type: 3}
-  m_Name: Pattern01
+  m_Name: EasyPattern01
   m_EditorClassIdentifier: 
-  summonInterval: 0.3
+  summonInterval: 0.75
   data:
   - startSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
     endSize: {fileID: 11400000, guid: d99b0c29a69a05d46bfb1c36c1f1ab6b, type: 2}
@@ -56,5 +56,5 @@ MonoBehaviour:
     resizeTime: 0.2
     scaler:
     - 6
-  coolTime: 2
+  coolTime: 4
   description: rains small size of windows

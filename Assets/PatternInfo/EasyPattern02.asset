@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1467416352689c498eb69f0f99ac503, type: 3}
-  m_Name: Pattern02
+  m_Name: EasyPattern02
   m_EditorClassIdentifier: 
-  summonInterval: 1
+  summonInterval: 1.2
   data:
-  - startSize: {fileID: 11400000, guid: cf5857f6a578e0243b8a641f62fc4470, type: 2}
+  - startSize: {fileID: 11400000, guid: f866646157af5fa49b74fcf45878ba61, type: 2}
     endSize: {fileID: 11400000, guid: cf5857f6a578e0243b8a641f62fc4470, type: 2}
     pos: 5
-    resizeTime: 0
+    resizeTime: 0.5
     scaler:
     - 0
     - 2
     - 4
-  - startSize: {fileID: 11400000, guid: cf5857f6a578e0243b8a641f62fc4470, type: 2}
+  - startSize: {fileID: 11400000, guid: f866646157af5fa49b74fcf45878ba61, type: 2}
     endSize: {fileID: 11400000, guid: cf5857f6a578e0243b8a641f62fc4470, type: 2}
     pos: 5
-    resizeTime: 0
+    resizeTime: 0.5
     scaler:
     - 1
     - 3
     - 5
   coolTime: 4
-  description: 
+  description: Drop three big blocks twice

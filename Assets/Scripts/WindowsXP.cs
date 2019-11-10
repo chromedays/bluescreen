@@ -38,6 +38,10 @@ public class WindowsXP : MonoBehaviour
 
     [Header("Pattern")]
     public List<PatternInfo> Patterns = new List<PatternInfo>();
+    public delegate void OnPatternEnd();
+    public OnPatternEnd onPatternEnd;
+    public int startPattern = 0;
+    public bool loop = false;
 
 
     [Header("Layout")]
@@ -56,22 +60,42 @@ public class WindowsXP : MonoBehaviour
         Assert.IsNotNull(WindowsParent, "WindowsParent should not be null!");
         Assert.IsNotNull(PopupPrefab, "Popup Prefab should not be null!");
 
+
+        StartAllPatternsLoop();
+
     }
                                       
-    public void DropWindows(int patternIndex)
+    public Coroutine DropWindows(int patternIndex)
     {
         Assert.IsNotNull(Patterns, "Pattern is Empty!");
         Assert.IsFalse(Patterns.Count <= patternIndex, "Congrate! Out of Index!");
 
         IEnumerator runPattern = RunPattern(Patterns[patternIndex]);
 
-        StartCoroutine(runPattern);
+        return StartCoroutine(runPattern);
     }
                                
     Vector2 ComputeSize(SizeInfo data)
     {
         Vector2 availableSpace = ScreenCanvas.sizeDelta - 2*Margin;
         return new Vector2(availableSpace.x * data.sizeX, availableSpace.y * data.sizeY);
+    }
+
+    public void StartAllPatternsLoop()
+    {
+        onPatternEnd = () => {
+            DropWindows(startPattern);
+            if (!loop)
+            {
+                ++startPattern;
+                if (Patterns.Count == startPattern)
+                    startPattern = 0;
+            }
+        };
+            
+        DropWindows(startPattern);
+        if(!loop)
+            ++startPattern;
     }
 
 
@@ -92,6 +116,10 @@ public class WindowsXP : MonoBehaviour
             }
             yield return null;
         }
+
+        yield return new WaitForSeconds(pattern.coolTime);
+
+        onPatternEnd?.Invoke();
     }
 
     void SummonWindow(SummonInfo info)
@@ -128,10 +156,11 @@ public class WindowsXP : MonoBehaviour
         XPPopup popupComp = Popup.GetComponent<XPPopup>();
         return popupComp;
     }
-                
 
     // Update is called once per frame
     void Update()
-    {         
+    {
+
+
     }
 }
